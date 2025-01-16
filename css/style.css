@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#menuBackground {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    background-image: url(../img/fondo.jpg);
+    filter: contrast(200%) brightness(50%);
+    z-index: -1;
+}
+
+#gameLogo {
+    width: 40vw;
+    height: 20vw;
+    background-image: url(../img/logo.webp);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: auto;
+    animation: logo 0.7s linear forwards;
+}
+
+@keyframes logo {
+    0% {
+        transform: translateY(-200%);
+    }
+
+    90% {
+        transform: translateY(-15%);
+    }
+
+    95% {
+        transform: translateY(-20%);
+    }
+
+    100% {
+        transform: translateY(-15%);
+    }
+}
+
+#startButton {
+    position: fixed;
+    top: 75%;
+    left: 33%;
+    color: whitesmoke;
+    font-family: "Pixelify Sans", serif;
+    background: none;
+    border: none;
+    font-size: 6vh;
+    cursor: pointer;
+    animation: textSpawn 1s linear, textAnimation 0.5s 1s linear alternate-reverse infinite;
+    transition: all 0.1s;
+}
+
+@keyframes textSpawn {
+    0% {
+        color: rgba(240, 255, 255, 0);
+        scale: 0%;
+    } 
+    
+    50% {
+        color: rgba(240, 255, 255, 0);
+    }   
+
+    80% {
+        color: rgba(240, 255, 255, 0);
+    }  
+
+    90% {
+        scale: 120%;
+    }
+
+    100% {
+        color: whitesmoke;
+        scale: 100%;
+        
+    }
+}
+
+@keyframes textAnimation {
+    0% {
+        scale: 100%;
+    }
+
+    100% {
+        scale: 110%;
+    }
+}
+
+#startButton:hover {
+    color: rgb(255, 217, 0);
+    rotate: -3deg;
+}

@@ -15,8 +15,10 @@ comboButton.addEventListener("click", () => {
     changeLoctaion("characterInfo.html");
 })
 
-settingsButton.addEventListener("click", () => {
-    changeLoctaion("settings.html");
+document.addEventListener("keydown",(event) => {
+    if(event.keyCode == 27){
+        changeLoctaion("menu.html");
+    }
 })
 
 function changeLoctaion(url){

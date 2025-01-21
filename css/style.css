@@ -1,7 +1,12 @@
+:root {
+    color-scheme: light;
+}
+
 * {
     margin: 0;
     padding: 0;
     font-family: "Pixelify Sans", serif;
+    color: black;
 }
 
 body {
@@ -29,7 +34,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2fr 0.5fr 1fr;
     max-height: 100vh;
- 
+    overflow: hidden;
 }
 
 #menuBackground {
@@ -38,7 +43,7 @@ body {
     width: 100vw;
     top: 0;
     background-image: url(../img/fondo.jpg);
-    filter: contrast(200%) brightness(50%);
+    filter: contrast(40%) brightness(150%) hue-rotate(180deg);
     z-index: -1;
 }
 
@@ -62,7 +67,7 @@ body {
 
 
 #dioMenu, #jotaroMenu {
-    filter: sepia(1) hue-rotate(280deg) brightness(60%) contrast(150%) saturate(120%);
+    filter: sepia(1) hue-rotate(40deg) brightness(60%) contrast(150%) saturate(120%);
 }
 
 #dioMenu:is(.reverse){
@@ -116,7 +121,6 @@ body {
 }
 
 #startButton {
-    color: whitesmoke;
     background: none;
     border: none;
     font-size: 6vh;
@@ -189,7 +193,11 @@ body {
 }
 
 #modeSelection:is(.reverse){
-    animation: menuButtons 1s forwards linear reverse;
+    animation: menuButtons 0.2s forwards linear reverse;
+}
+
+#settingsButton {
+    cursor: not-allowed !important;
 }
 
 #modeSelection {
@@ -204,8 +212,7 @@ body {
     height: 100%;
     background: none;
     border: none;
-    font-size: larger;
-    color: white;
+    font-size: 4vh;
     cursor: pointer;
     text-align: start;
     padding-left: 10%;
@@ -217,7 +224,7 @@ body {
     border-image-width: auto;
     border-image-slice: fill;
     color: gold;
-    background-image: linear-gradient(to right, rgba(244, 139, 254, 0.402), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(to right, rgba(7, 82, 0, 0.402), rgba(255, 255, 255, 0));
 }
 
 .border[reverse]{
@@ -233,11 +240,10 @@ body {
 }
 
 #locationText:is(.reverse){
-    animation: locationText 1s forwards ease-in reverse;
+    animation: locationText 0.1s forwards ease-in reverse;
 }
 
 #locationText {
-    color: white;
     grid-row: 1;
     grid-column: 2;
     border-bottom: goldenrod solid 2px;
@@ -256,8 +262,8 @@ body {
     height: 200vh;
     right: 3%;
     z-index: -1;
-    filter: sepia(0.8) invert(1) contrast(80%) brightness(110%);
-    mix-blend-mode: soft-light;
+    filter: sepia(0.8) contrast(80%) brightness(110%);
+    mix-blend-mode: darken;
     animation: splashArt 1.2s ease-in-out forwards;
 }
 
@@ -307,15 +313,30 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5%;
+    backdrop-filter: blur(4px);
     justify-content: center;
+    background-image: radial-gradient(rgba(153, 255, 132, 0.425) 80%, rgba(0, 0, 0, 0));
+    animation: selector 0.7s ease forwards;
 }
 
 .character[active]{
-    animation: characterBorder 0.5s linear infinite forwards alternate;
+    animation: characterBorder 1s linear infinite forwards alternate;
     scale: 105%;
-    box-shadow: 0px 0px 5px gold;
     filter: brightness(1);
+    box-shadow: 0 0 10px rgb(0, 81, 255);
 }
+
+.character[activeP2]{
+    animation: characterBorder 1s linear infinite forwards alternate;
+    filter: brightness(1);
+    box-shadow: 0 0 10px red;
+}
+
+.character[activeP2][active]{
+    box-shadow: 2px 2px 6px red,
+    -2px -2px 6px rgb(0, 81, 255);
+}
+
 
 .character {
     width: 8%;
@@ -339,30 +360,158 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    transition: all 0.2s;
+    animation: selector 1s linear forwards;
 }
 
 #player1 {
    grid-column: 1; 
    grid-row: 1 / 3;
+   filter: drop-shadow(0px 0px 5px rgb(0, 119, 255));
 }
 
 #player2 {
     grid-column: 3;
     grid-row: 1 / 3;
+    background-image: url(../img/portraits/shadowDio.png);
+    filter: drop-shadow(0px 0px 5px rgb(255, 0, 0));
 }
 
 @keyframes characterBorder {
 
     0% {
-        border-image: linear-gradient(to right, #d5a43a , #d5a43a , #d5a43a , #ffe08d ) 1;
+        border-image: linear-gradient(to right, #d5a43a , #d5a43a , #d5a43a , #fff1c9 ) 1;
+        border-width: 3px;
+        border-style: solid;
+    }
+
+    33% {
+        border-image: linear-gradient(to right, #fff1c9  , #d5a43a, #d5a43a , #d5a43a ) 1;
+        border-width: 3px;
+        border-style: solid;
+    }
+
+    70% {
+        border-image: linear-gradient(to right, #d5a43a , #fff1c9, #d5a43a , #d5a43a ) 1;
         border-width: 3px;
         border-style: solid;
     }
 
     100% {
-        border-image: linear-gradient(to right, #ffe07a , #d5a43a, #d5a43a , #d5a43a ) 1;
+        border-image: linear-gradient(to right, #d5a43a  , #d5a43a, #fff1c9 , #d5a43a ) 1;
         border-width: 3px;
         border-style: solid;
     }
 
+}
+
+#p1name, #p2name {
+    align-self: end;
+    margin-bottom: 5%;
+    z-index: 2;
+    font-size: 5vh;
+}
+
+h1:is(#p1name,#p2name)::first-letter {
+    text-transform: uppercase;
+}
+
+#p1name {
+    grid-column: 1;
+    grid-row: 1;
+    height: 6vh;
+    backdrop-filter: blur(2px);
+    background-image: linear-gradient(to right, blue, rgba(0,0,0,0));
+    padding-left: 4%;
+    animation: menuButtons 1s linear forwards;
+}
+
+#p2name {
+    grid-column: 3;
+    grid-row: 1;
+    height: 6vh;
+    backdrop-filter: blur(2px);
+    background-image: linear-gradient(to left, red, rgba(0,0,0,0));
+    text-align: end;
+    padding-right: 4%;
+    animation: locationText 1s linear forwards;
+}
+
+#vsBackground {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    background-image: url(../img/backgroundLight.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(3px) brightness(0.6);
+    z-index: -1;
+    animation: borders 0.7s ease;
+}
+
+#vs {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gold;
+    text-shadow: 0 0 10px black;
+    font-size: 20vh;
+    transform: skew(5deg);
+    animation: textSpawn 1s ease-in-out;
+    cursor: not-allowed;
+}
+
+#comboTutorial {
+    grid-row: 2;
+    grid-column: 2;
+    width: 100%;
+    height: 80%;
+    z-index: 2;
+    background-color: black;
+    animation: selector 1s ease;
+}
+
+
+
+@keyframes selector {
+    0% {
+        transform: translateY(200%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    *{
+        color: whitesmoke;
+    }
+
+    #menuBackground {
+        filter: contrast(150%) brightness(50%);
+    }
+
+    #dioMenu, #jotaroMenu {
+        filter: sepia(1) hue-rotate(260deg) brightness(60%) contrast(150%) saturate(120%);
+    }
+
+    #modeSelection > button:hover {
+        background-image: linear-gradient(to right, rgba(95, 21, 138, 0.918), rgba(255, 255, 255, 0));
+    }
+
+    #splashArt {
+        mix-blend-mode: soft-light;
+        filter: sepia(0.8) invert(1) contrast(80%) brightness(110%);
+    }
+
+    #selector {
+        background-image: radial-gradient(rgba(74, 17, 109, 0.842) 80%, rgba(0, 0, 0, 0));
+    }
+
+    #vsBackground {
+        background-image: url(../img/backgroundDark.jpg);
+    }
 }
